@@ -1,0 +1,22 @@
+#!/usr/bin/python3
+"""
+A function that factorizes as many numbers as possible into a product of two smaller numbers
+"""
+
+import sys
+import math
+
+def factorize(n):
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return n // i, i
+    return n, 1
+
+
+if __name__ == '__main__':
+    with open(sys.argv[1]) as f:
+        for line in f:
+            if line.strip():
+                n = int(line)
+                p, q = factorize(n)
+            print(f"{n}={p}*{q}")

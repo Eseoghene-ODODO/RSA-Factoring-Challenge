@@ -1,0 +1,35 @@
+#!/usr/bun/python3
+"""
+A function that does the rsa challenge in bits
+"""
+
+
+import sys
+import math
+from multiprocessing import Pool
+
+def prime_factors(n):
+    factors = []
+
+    # Check for small factors
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            factors.append(i)
+            while n % i == 0:
+                n //= i
+
+    # If n has a factor greater than sqrt(n) it must be prime
+    if n > 1:
+        factors.append(n)
+
+    return factors
+
+
+if __name__ == '__main__':
+    with open(sys.argv[1]) as f:
+        n = int(f.read())
+
+    factors = prime_factors(n)
+    p, q = factors[0], factors[1]
+
+    print(f"{n}={p}*{q}")
